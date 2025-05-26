@@ -2,8 +2,11 @@
 ## For <project name>
 
 Version 0.1  
+
 Prepared by Antoine Wimberly & Jay Park
+
 CSC340 - Group 4 
+
 May 26, 2025
 
 Table of Contents
