@@ -2,9 +2,9 @@
 ## For <project name>
 
 Version 0.1  
-Prepared by <author>  
-<organization>  
-<date created> 
+Prepared by Antoine Wimberly & Jay Park
+CSC340 - Group 4 
+May 26, 2025
 
 Table of Contents
 =================
@@ -120,7 +120,7 @@ Specify the factors required to guarantee a defined availability level for the e
 Specify the requirements derived from existing standards or regulations
 
 #### 3.2.6 Cost
-Specify monetary cost of the software product.
+There is no monetary cost for the software product.
 
 #### 3.2.7 Deadline
-Specify schedule for delivery of the software product.
+June 18, 2025
