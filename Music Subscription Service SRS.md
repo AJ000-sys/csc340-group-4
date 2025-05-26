@@ -55,7 +55,9 @@ Provide a short description of the software being specified and its purpose, inc
 
 ### 1.3 Definitions, Acronyms and Abbreviations 
 Java -    Java is a high-level, object-oriented programming language designed to be platform-independent.
+
 Vscode - A lightweight, open-source code editor developed by Microsoft that supports multiple programming languages, extensions, and debugging tools, making it a popular choice for developers.  
+
 Springboot - A Java framework that makes it easy to create stand-alone, production-ready web applications quickly.                                                                                                            |
 
 ### 1.4 References
