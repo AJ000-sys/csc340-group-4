@@ -54,8 +54,10 @@ Identify the product whose software requirements are specified in this document,
 Provide a short description of the software being specified and its purpose, including relevant benefits, objectives, and goals. Relate the software to corporate goals or business strategies. If a separate vision and scope document is available, refer to it rather than duplicating its contents here.
 
 ### 1.3 Definitions, Acronyms and Abbreviations 
-Java -    Java is a high-level, object-oriented programming language designed to be platform-independent.  
-Vscode - A lightweight, open-source code editor developed by Microsoft that supports multiple programming languages, extensions, and debugging tools, making it a popular choice for developers.    
+Java -    Java is a high-level, object-oriented programming language designed to be platform-independent.
+
+Vscode - A lightweight, open-source code editor developed by Microsoft that supports multiple programming languages, extensions, and debugging tools, making it a popular choice for developers.
+
 Springboot - A Java framework that makes it easy to create stand-alone, production-ready web applications quickly.                                                                                                              |
 
 ### 1.4 References
@@ -87,16 +89,17 @@ List any assumed factors (as opposed to known facts) that could affect the requi
 ## 3. Requirements
 
 ### 3.1 Functional Requirements 
-FR0: The system will allow user to create accounts as either listener or artist.  
+FR0: The system shall allow user to create accounts as either listener or artist.  
+FR1: The system shall allow artists to upload music.  
+FR2: The artist should have access to  different streaming statistics.  
+FR3: The system shall allow artists to interact with customer review.
 
 
 #### 3.1.1 User interfaces
-Define the software components for which a user interface is needed. Describe the logical characteristics of each interface between the software product and the users. This may include sample screen images, any GUI standards or product family style guides that are to be followed, screen layout constraints, standard buttons and functions (e.g., help) that will appear on every screen, keyboard shortcuts, error message display standards, and so on. Details of the user interface design should be documented in a separate user interface specification.
-
-Could be further divided into Usability and Convenience requirements.
+Web pages using HTML, CSS, and JavaScript.
 
 #### 3.1.2 Hardware interfaces
-Describe the logical and physical characteristics of each interface between the software product and the hardware components of the system. This may include the supported device types, the nature of the data and control interactions between the software and the hardware, and communication protocols to be used.
+Devices that have web browser capabilities.
 
 #### 3.1.3 Software interfaces
 - Java jdk 21
@@ -120,7 +123,7 @@ Specify the factors required to guarantee a defined availability level for the e
 Specify the requirements derived from existing standards or regulations
 
 #### 3.2.6 Cost
-There is no monetary cost for the software product.
+There will be no monetary cost for the software product.
 
 #### 3.2.7 Deadline
 June 18, 2025
