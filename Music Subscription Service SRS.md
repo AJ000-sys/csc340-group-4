@@ -89,11 +89,13 @@ List any assumed factors (as opposed to known facts) that could affect the requi
 ## 3. Requirements
 
 ### 3.1 Functional Requirements 
-FR0: The system shall allow user to create accounts as either listener or artist.  
-FR1: The system shall allow artists to upload music.  
-FR2: The artist should have access to  different streaming statistics.  
-FR3: The system shall allow artists to interact with customer review.
-
+- FR0: The system shall allow users to create a profile either as a customer or an artist.
+- FR1: The system shall allow artists to create new songs, and edit or remove them.
+- FR2: The system shall allow artists to interact with customers by replying to their comments/feedback.
+- FR3: The system shall allow artists to view their songs engagment by displaying streaming statistics.
+- FR4: The system shall allow customers to select the following services: browse, listen, and download music.
+- FR5: The system shall allow customers to subscribe to their desired artists.
+- FR6: The system shall allow customers to write comments/feedback on songs of their choice.
 
 #### 3.1.1 User interfaces
 Web pages using HTML, CSS, and JavaScript.
@@ -108,19 +110,20 @@ Devices that have web browser capabilities.
 ### 3.2 Non Functional Requirements 
 
 #### 3.2.1 Performance
-If there are performance requirements for the product under various circumstances, state them here and explain their rationale, to help the developers understand the intent and make suitable design choices. Specify the timing relationships for real time systems. Make such requirements as specific as possible. You may need to state performance requirements for individual functional requirements or features.
+- NFR0: Songs will load in less than 3 seconds.
+- NFR1: The customer will be able to download songs in less than 30 seconds.
+- NFR2: The artist will be able to upload music in less than 1 minute.
+- NFR3: The artist will be able to view their song's engagement in less than 5 seconds.
 
 #### 3.2.2 Security
-Specify any requirements regarding security or privacy issues surrounding use of the product or protection of the data used or created by the product. Define any user identity authentication requirements. Refer to any external policies or regulations containing security issues that affect the product. Define any security or privacy certifications that must be satisfied.
+- NFR4: The system is going to be available only to authorized users, using their username and password.
 
 #### 3.2.3 Reliability
-Specify the factors required to establish the required reliability of the software system at time of delivery.
 
 #### 3.2.4 Availability
-Specify the factors required to guarantee a defined availability level for the entire system such as checkpoint, recovery, and restart.
+- NFR5: The Music Subscription Service system shall be available 24/7. Scheduled Maintenance should be initialized during scheduled low activity hours such as federal holidays to minimize conflict with user's using the app.
 
 #### 3.2.5 Compliance
-Specify the requirements derived from existing standards or regulations
 
 #### 3.2.6 Cost
 There will be no monetary cost for the software product.
