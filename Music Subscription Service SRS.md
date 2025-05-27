@@ -1,5 +1,5 @@
 # Software Requirements Specification
-## For <project name>
+## For Music Subscription Service
 
 Version 0.1  
 
