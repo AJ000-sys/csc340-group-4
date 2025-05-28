@@ -80,18 +80,21 @@
 
 <body>
     <div class="container">
-        <h2 class="form-title">Sign In</h2>
-        <p class="subtitle">Login into your account</p>
+        <h2 class="form-title">Sign Up</h2>
+        <p class="subtitle">Create your account to get started</p>
         <form>
             <label for="username">Username</label><br>
             <input type="text" id="username" name="username" required><br>
+
+            <label for="email">Email</label><br>
+            <input type="email" id="email" name="email" required autocomplete="username"><br>
 
             <label for="password">Password</label><br>
             <input type="password" id="password" name="password" required autocomplete="current-password"><br>
 
             <button type="submit" onclick="window.location.href='teacher-dashboard.html'">Login</button>
         </form>
-        <a class="register-link" href="register.html">New user? Register here</a>
+        <a class="register-link" href="SignIn.html">Sign in</a>
     </div>
 </body>
 
