@@ -1,38 +1,50 @@
 package com.example.Simplex;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+    private Long userId;
 
-    private Long id;
+    
+    @Column(nullable = false, unique = true)
     private String userName;
+
+    @Column(nullable = false, unique = true)
     private String password;
+
+    @Column(nullable = false, unique = true)    
     private String email;
 
     public User(){
+    }
 
-        this.id = id;
+    public User(Long userId, String userName, String password, String email) {
+        this.userId = userId;
         this.userName = userName;
         this.password = password;
         this.email = email;
     }
 
-    public User(Long id, String userName, String password, String email) {
-        this.id = id;
+    public User(String userName, String password, String email) {
         this.userName = userName;
         this.password = password;
         this.email = email;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
