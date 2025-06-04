@@ -48,6 +48,6 @@ A user shall be able to all avaliable song. They can do this from the home page 
 
 
 ## 3. UML Class Diagram
-![UML Class Diagram](https://github.com/uncg-csc340/su25-team0/blob/main/object-oriented-design/class-diagram.png)
+![UML Class Diagram](https://github.com/AJ000-sys/csc340-group-4/blob/main/object-oriented-design/Class%20Diagram.png)
 ## 4. Database Schema
 ![UML Class Diagram](https://github.com/uncg-csc340/su25-team0/blob/main/object-oriented-design/database-schema.png)
