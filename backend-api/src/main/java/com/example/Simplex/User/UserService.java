@@ -1,4 +1,4 @@
-package com.example.Simplex;
+package com.example.Simplex.User;
 
 public class UserService {
     
