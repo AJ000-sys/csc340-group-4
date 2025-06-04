@@ -28,7 +28,7 @@ Simplex is a simple, easy to use web app with the goal allowing any user to brow
 
 ## 2. Use Cases
 ### 2.1 Use Case Model
-![Use Case Model](https://github.com/AJ000-sys/csc340-group-4/raw/main/object-oriented-design/use-case-model.png)
+![Use Case Model](https://github.com/AJ000-sys/csc340-group-4/blob/main/object-oriented-design/Music%20Subscription%20Service%20Use%20Case%20Diagram.png)
 
 ### 2.2 Use Case Descriptions
 
