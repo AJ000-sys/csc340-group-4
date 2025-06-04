@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/songs")
+@RequestMapping("/song")
 public class SongController {
 
     @Autowired
@@ -22,9 +22,9 @@ public class SongController {
         return songService.getAllSongs();
     }
 
-    @GetMapping("/{id}")
-    public Object getSongById(@PathVariable long id) {
-        return songService.getSongById(id);
+    @GetMapping("/{songId}")
+    public Object getSongById(@PathVariable long songId) {
+        return songService.getSongsById(songId);
     }
 
     @GetMapping("/title/{title}")
@@ -47,15 +47,14 @@ public class SongController {
         return songService.createSong(song);
     }
 
-    @PutMapping("/{id}")
-    public Song updateSong(@PathVariable Long id, @RequestBody Song song) {
-        songService.updateSong(id, song);
-        return songService.updateSong(id, song);
+    @PutMapping("/{songId}")
+    public Song updateSong(@PathVariable Long songId, @RequestBody Song song) {
+        return songService.updateSong(songId, song);
     }
 
-    @DeleteMapping("/{id}")
-    public Object deleteSong(@PathVariable Long id) {
-        songService.deleteSong(id);
+    @DeleteMapping("/{songId}")
+    public Object deleteSong(@PathVariable Long songId) {
+        songService.deleteSong(songId);
         return songService.getAllSongs();
     }
 }

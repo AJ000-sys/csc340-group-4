@@ -14,7 +14,7 @@ public class SongService {
         return songRepository.findAll();
     }
 
-    public Object getSongById(@PathVariable long songId) {
+    public Object getSongsById(@PathVariable long songId) {
         return songRepository.findById(songId).orElse(null);
     }
 
