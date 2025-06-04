@@ -12,7 +12,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long userId;
-
     
     @Column(nullable = false, unique = true)
     private String userName;
