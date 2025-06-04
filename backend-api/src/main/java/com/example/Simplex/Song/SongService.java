@@ -34,12 +34,12 @@ public class SongService {
         return songRepository.save(song);
     }
 
-public Song updateSong(Long id, Song song) {
-        song.setSongId(id);
+    public Song updateSong(Long songId, Song song) {
+        song.setSongId(songId);
         return songRepository.save(song);
     }
 
-    public void deleteSong(Long id) {
-        songRepository.deleteById(id);
+    public void deleteSong(Long songId) {
+        songRepository.deleteById(songId);
     }
 }
