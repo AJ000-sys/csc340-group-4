@@ -1,11 +1,13 @@
 package com.example.Simplex.User;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class UserService {
     
+    @Autowired
     private UserRepository userRepository;
 
     public Object getAllUsers() {
@@ -25,6 +27,7 @@ public class UserService {
     }
 
     public User updateUser(Long userId, User user) {
+        user.setUserId(userId);
         return userRepository.save(user);
     }
 
