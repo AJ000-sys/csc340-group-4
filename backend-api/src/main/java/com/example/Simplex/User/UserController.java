@@ -22,9 +22,9 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/{userId}")
-    public Object getUserById(@PathVariable long userId) {
-        return userService.getUsersById(userId);
+    @GetMapping("/{id}")
+    public Object getUserById(@PathVariable long id) {
+        return userService.getUsersById(id);
     }
 
     @GetMapping("/name/{userName}")
@@ -33,17 +33,19 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user) {
+    public Object createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
 
-    @PutMapping("/{userId}")
-    public User updateUser(@PathVariable Long userId, @RequestBody User user) {
-        return userService.updateUser(userId, user);
+    @PutMapping("/{id}")
+    public User updateUser(@PathVariable Long id, @RequestBody User user) {
+        userService.updateUser(id, user);
+        return userService.updateUser(id, user);
     }
 
-    @DeleteMapping("/{userId}")
-    public void deleteUser(@PathVariable Long userId) {
-        userService.deleteUser(userId);
+    @DeleteMapping("/{id}")
+    public Object deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return userService.getAllUsers();
     }
 }
