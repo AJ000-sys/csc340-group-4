@@ -1,50 +1,71 @@
 package com.example.Simplex.User;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
-@RestController
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public Object getAllUsers() {
-        return userService.getAllUsers();
+    @Autowired
+    private UserRepository userRepository;
+
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
     }
 
-    @GetMapping("/{userId}")
-    public Object getUserById(@PathVariable long userId) {
-        return userService.getUsersById(userId);
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute User user, Model model) {
+        try {
+            userService.createUser(user);
+            return "redirect:/user/browse-song";
+        } catch (Exception e) {
+            model.addAttribute("error", "Registration failed: " + e.getMessage());
+            return "register";
+        }
     }
 
-    @GetMapping("/name/{userName}")
-    public Object getUserByName(@PathVariable String userName) {
-        return userService.getUserByName(userName);
+    @GetMapping("/login")
+    public String showLoginForm() {
+        return "sign-in";
     }
 
-    @PostMapping
-    public Object createUser(@RequestBody User user) {
-        return userService.createUser(user);
+    @PostMapping("/login")
+    public String loginUser(@RequestParam String userName, 
+                          @RequestParam String password,
+                          HttpSession session,
+                          Model model) {
+        List<User> users = userRepository.findByUserName(userName);
+        if (!users.isEmpty() && users.get(0).getPassword().equals(password)) {
+            session.setAttribute("currentUser", users.get(0));
+            return "redirect:/user/browse-song";
+        }
+        model.addAttribute("error", "Invalid credentials");
+        return "sign-in";
     }
 
-    @PutMapping("/{userId}")
-    public User updateUser(@PathVariable Long userId, @RequestBody User user) {
-        return userService.updateUser(userId, user);
-    }
-
-    @DeleteMapping("/{userId}")
-    public Object deleteUser(@PathVariable Long userId) {
-        userService.deleteUser(userId);
-        return userService.getAllUsers();
+    @GetMapping("/browse-song")
+    public String showBrowsePage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/user/login";
+        }
+        model.addAttribute("user", user);
+        return "browse-song";
     }
 }
