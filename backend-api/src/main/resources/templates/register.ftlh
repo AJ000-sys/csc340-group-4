@@ -1,112 +1,87 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Register | Simplex</title>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #292525;
-            color: white;
-            margin: 0;
-            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: #f3f4f6;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
-        .register-container {
-            background-color: #3a3636;
-            padding: 30px;
-            border-radius: 8px;
-            width: 350px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        .signup-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
         }
         h2 {
-            color: #d693f8;
+            margin-bottom: 1.5rem;
             text-align: center;
-            margin-bottom: 25px;
+            color: #111827;
         }
-        .form-group {
-            margin-bottom: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-        input {
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
             width: 100%;
-            padding: 10px;
-            border-radius: 4px;
-            border: 1px solid #444;
-            background-color: #292525;
-            color: white;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 1rem;
         }
         button {
-            background-color: #d693f8;
-            color: black;
-            border: none;
-            padding: 12px;
             width: 100%;
-            border-radius: 4px;
+            padding: 0.75rem;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
             cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s ease;
         }
         button:hover {
-            background-color: #c47df5;
+            background-color: #1d4ed8;
         }
-        .login-link {
+        .footer-text {
+            margin-top: 1rem;
+            font-size: 0.9rem;
             text-align: center;
-            margin-top: 20px;
+            color: #6b7280;
         }
-        .login-link a {
-            color: #d693f8;
+        .footer-text a {
+            color: #2563eb;
             text-decoration: none;
         }
-        .error {
-            color: #ff6b6b;
-            margin-bottom: 15px;
-            text-align: center;
+        .footer-text a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="register-container">
-        <h2>Create Your Account</h2>
-        
-        <#if error??>
-            <div class="error">${error}</div>
-        </#if>
-        
+    <div class="signup-container">
+        <h2>Sign Up</h2>
         <form action="/user/register" method="post">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            
-            <div class="form-group">
-                <label for="userName">Username</label>
-                <input type="text" id="userName" name="userName" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" required>
-            </div>
-            
-            <button type="submit">Register</button>
-            
-            <div class="login-link">
-                Already have an account? <a href="/user/login">Sign in</a>
-            </div>
+            <input type="text" name="userName" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+                 
+            <button type="submit">Sign Up</button>
         </form>
+        <div class="footer-text">
+            Already have an account? <a href="/user/login">Sign in</a>
+        </div>
+        <#if error??>
+            <div style="color: red; margin-top: 1rem;">${error}</div>
+        </#if>
     </div>
 </body>
-</html
+</html>

@@ -17,4 +17,7 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 
     @Query(value = "select * from song s where s.genre = ?1", nativeQuery = true)
     List<Song> findByGenre(String genre);
+
+    List<Song> findByTitleContainingIgnoreCase(String titlePart);
+    List<Song> findByArtistContainingIgnoreCase(String artistPart);
 }

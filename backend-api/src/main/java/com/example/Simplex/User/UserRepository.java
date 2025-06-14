@@ -16,24 +16,19 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    // Existing query with parameter binding improvement
     @Query(value = "SELECT * FROM users WHERE userName = :username", nativeQuery = true)
     List<User> findByUserName(@Param("username") String userName);
 
-    // Derived query method (no need for @Query)
     Optional<User> findByEmail(String email);
 
-    // Combined username/email check for registration validation
     @Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END " +
            "FROM User u WHERE u.userName = :username OR u.email = :email")
     boolean existsByUsernameOrEmail(@Param("username") String username, 
                                   @Param("email") String email);
 
-    // For login authentication
     @Query("SELECT u FROM User u WHERE u.userName = :username")
     Optional<User> findUserForAuthentication(@Param("username") String username);
 
-    // For profile updates - selective update
     @Modifying
     @Transactional
     @Query("UPDATE User u SET u.userName = :username, u.email = :email WHERE u.userId = :userId")
@@ -41,14 +36,12 @@ public interface UserRepository extends JpaRepository<User, Long> {
                         @Param("username") String username,
                         @Param("email") String email);
 
-    // For password updates
     @Modifying
     @Transactional
     @Query("UPDATE User u SET u.password = :password WHERE u.userId = :userId")
     int updatePassword(@Param("userId") Long userId, 
                       @Param("password") String encodedPassword);
 
-    // For admin functionality - find all users with pagination
     @Query(value = "SELECT * FROM users ORDER BY userName",
            countQuery = "SELECT COUNT(*) FROM users",
            nativeQuery = true)

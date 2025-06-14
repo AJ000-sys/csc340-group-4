@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Browse Songs | Simplex</title>
+    <title>Simplex</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #292525;
-            color: white;
         }
         .container {
             width: 80%;
@@ -21,77 +20,50 @@
             padding-top: 30px;
             min-height: 70px;
             border-bottom: #bbb 1px solid;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
         header a {
-            color: white;
+            color: #fff;
             text-decoration: none;
             text-transform: uppercase;
             font-size: 16px;
-            transition: color 0.3s;
-        }
-        header a:hover {
-            color: #d693f8;
         }
         header ul {
             margin: 0;
             padding: 0;
-            display: flex;
-            list-style: none;
         }
         header li {
-            padding: 0 20px;
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
         }
-        #branding h1 {
+        header #branding {
+            float: left;
+        }
+        header #branding h1 {
             margin: 0;
-            color: #d693f8;
         }
-        .welcome-message {
-            margin: 20px 0;
-            color: #d693f8;
+        header nav {
+            float: right;
+            margin-top: 10px;
         }
         .song-list {
-            padding: 20px 0;
+            padding: 20px;
         }
         .song-item {
-            background: #3a3636;
-            border: 1px solid #444;
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 5px;
+            background: #fefefe;
+            border: 1px solid #f3f1f1;
+            padding: 10px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            transition: transform 0.2s, background 0.3s;
-        }
-        .song-item:hover {
-            background: #4a4545;
-            transform: translateX(5px);
+            text-decoration: none;
+            color: #000000;
         }
         .song-item img {
-            width: 60px;
-            height: 60px;
-            margin-right: 20px;
-            border-radius: 4px;
-            object-fit: cover;
-        }
-        .song-info {
-            flex-grow: 1;
-        }
-        .song-title {
-            font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 5px;
-        }
-        .song-artist {
-            color: #bbb;
-            font-size: 14px;
-        }
-        .play-button {
-            color: #d693f8;
-            text-decoration: none;
-            font-weight: bold;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+            vertical-align: middle;
         }
     </style>
 </head>
@@ -99,39 +71,35 @@
     <header>
         <div class="container">
             <div id="branding">
-                <h1>Simplex</h1>
+                <h1><span class="highlight">Simplex</span></h1>
             </div>
             <nav>
                 <ul>
-                    <li><a href="/user/browse-song">Home</a></li>
-                    <li><a href="/upload">Upload</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/user/upload">Upload</a></li>
                     <li><a href="/user/profile">Profile</a></li>
                     <li><a href="/playlists">Playlists</a></li>
-                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/user/logout">Logout</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <div class="container">
-        <div class="welcome-message">
-            <#if currentUser??>
-                Welcome, ${currentUser.userName}!
-            </#if>
+    <section class="song-list">
+        <div class="container">
+            <a href="/song" class="song-item">
+                <img src="https://i1.sndcdn.com/artworks-wcNhNqxpy9yHoYtK-PNSFCA-t500x500.jpg" alt="Song Image">
+                <span>jaded - Defsharp</span>
+            </a>
+            <a href="/song" class="song-item">
+                <img src="https://i1.sndcdn.com/artworks-P8Mhxk2QaMM9-0-t500x500.jpg" alt="Song Image">
+                <span>Run It - Jelly Roll</span>
+            </a>
+            <a href="/song" class="song-item">
+                <img src="https://i1.sndcdn.com/artworks-y6WaHzlvp7PbwkLT-JlZicw-t500x500.png" alt="Song Image">
+                <span>luther - Kendrick Lamar</span>
+            </a>
         </div>
-
-        <section class="song-list">
-            <#list songs as song>
-                <div class="song-item">
-                    <img src="${song.imageUrl}" alt="Song cover" onerror="this.src='http://localhost:8080/user'">
-                    <div class="song-info">
-                        <div class="song-title">${song.title}</div>
-                        <div class="song-artist">${song.artist}</div>
-                    </div>
-                    <a href="/song/${song.id}" class="play-button">Play</a>
-                </div>
-            </#list>
-        </section>
-    </div>
+    </section>
 </body>
 </html>

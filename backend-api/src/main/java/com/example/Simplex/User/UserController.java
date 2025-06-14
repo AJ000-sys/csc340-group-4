@@ -1,13 +1,13 @@
 package com.example.Simplex.User;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,23 +40,29 @@ public class UserController {
         }
     }
 
-    @GetMapping("/login")
-    public String showLoginForm() {
+    @GetMapping({ "/", "/login" })
+    public String showLoginForm(@RequestParam(required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("error", "Invalid username or password");
+        }
         return "sign-in";
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestParam String userName, 
-                          @RequestParam String password,
-                          HttpSession session,
-                          Model model) {
-        List<User> users = userRepository.findByUserName(userName);
-        if (!users.isEmpty() && users.get(0).getPassword().equals(password)) {
-            session.setAttribute("currentUser", users.get(0));
+    public String loginUser(@RequestParam String userName, @RequestParam String password, HttpSession session,
+            Model model) {
+        Optional<User> user = userService.findUserForAuthentication(userName);
+        if (user.isPresent() && user.get().getPassword().equals(password)) {
+            session.setAttribute("currentUser", user.get());
             return "redirect:/user/browse-song";
         }
-        model.addAttribute("error", "Invalid credentials");
-        return "sign-in";
+        return "redirect:/user/login?error=true";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/user/login";
     }
 
     @GetMapping("/browse-song")
@@ -65,7 +71,25 @@ public class UserController {
         if (user == null) {
             return "redirect:/user/login";
         }
-        model.addAttribute("user", user);
+        model.addAttribute("currentUser", user);
         return "browse-song";
+    }
+
+    @GetMapping("/upload")
+    public String showUploadPage(HttpSession session) {
+        if (session.getAttribute("currentUser") == null) {
+            return "redirect:/user/login";
+        }
+        return "upload-song";
+    }
+
+    @GetMapping("/profile")
+    public String showProfilePage(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            return "redirect:/user/login";
+        }
+        model.addAttribute("currentUser", user);
+        return "profile";
     }
 }
