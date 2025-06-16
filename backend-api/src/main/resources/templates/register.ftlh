@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
@@ -14,6 +15,7 @@
             height: 100vh;
             margin: 0;
         }
+
         .signup-container {
             background: white;
             padding: 2rem;
@@ -22,11 +24,13 @@
             width: 100%;
             max-width: 400px;
         }
+
         h2 {
             margin-bottom: 1.5rem;
             text-align: center;
             color: #111827;
         }
+
         input[type="text"],
         input[type="email"],
         input[type="password"] {
@@ -37,6 +41,7 @@
             border-radius: 8px;
             font-size: 1rem;
         }
+
         button {
             width: 100%;
             padding: 0.75rem;
@@ -48,24 +53,29 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         button:hover {
             background-color: #1d4ed8;
         }
+
         .footer-text {
             margin-top: 1rem;
             font-size: 0.9rem;
             text-align: center;
             color: #6b7280;
         }
+
         .footer-text a {
             color: #2563eb;
             text-decoration: none;
         }
+
         .footer-text a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
     <div class="signup-container">
         <h2>Sign Up</h2>
@@ -73,7 +83,7 @@
             <input type="text" name="userName" placeholder="Username" required>
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
-                 
+
             <button type="submit">Sign Up</button>
         </form>
         <div class="footer-text">
@@ -84,4 +94,5 @@
         </#if>
     </div>
 </body>
+
 </html>

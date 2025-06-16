@@ -12,17 +12,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private Long userId;
-    
+
     @Column(nullable = false, unique = true)
     private String userName;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, unique = true)    
+    @Column(nullable = false, unique = true)
     private String email;
 
-    public User(){
+    @Column
+    private String bio;
+
+    @Column
+    private String profileImagePath;
+
+    public User() {
     }
 
     public User(Long userId, String userName, String password, String email) {
@@ -68,5 +74,21 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getProfileImagePath() {
+        return profileImagePath;
+    }
+
+    public void setProfileImagePath(String profileImagePath) {
+        this.profileImagePath = profileImagePath;
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Simplex</title>
     <style>
@@ -9,11 +10,13 @@
             padding: 0;
             background-color: #292525;
         }
+
         .container {
             width: 80%;
             margin: auto;
             overflow: hidden;
         }
+
         header {
             background: #040404;
             color: #d693f8;
@@ -21,34 +24,42 @@
             min-height: 70px;
             border-bottom: #bbb 1px solid;
         }
+
         header a {
             color: #fff;
             text-decoration: none;
             text-transform: uppercase;
             font-size: 16px;
         }
+
         header ul {
             margin: 0;
             padding: 0;
         }
+
         header li {
             float: left;
             display: inline;
             padding: 0 20px 0 20px;
         }
+
         header #branding {
             float: left;
         }
+
         header #branding h1 {
             margin: 0;
         }
+
         header nav {
             float: right;
             margin-top: 10px;
         }
+
         .song-list {
             padding: 20px;
         }
+
         .song-item {
             background: #fefefe;
             border: 1px solid #f3f1f1;
@@ -59,14 +70,85 @@
             text-decoration: none;
             color: #000000;
         }
+
         .song-item img {
             width: 50px;
             height: 50px;
             margin-right: 10px;
             vertical-align: middle;
         }
+
+        .song-info {
+            flex-grow: 1;
+        }
+
+        .song-title {
+            font-weight: bold;
+        }
+
+        .song-artist {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .play-button {
+            background: #d693f8;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .play-button:hover {
+            background: #c47de8;
+        }
+
+        audio {
+            display: none;
+        }
+
+        .now-playing {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #333;
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .now-playing-info {
+            margin-left: 15px;
+            flex-grow: 1;
+        }
+
+        .now-playing-title {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .now-playing-artist {
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        .audio-controls {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .active-song {
+            background-color: #f0f0f0;
+            border-left: 4px solid #d693f8;
+        }
     </style>
 </head>
+
 <body>
     <header>
         <div class="container">
@@ -87,19 +169,76 @@
 
     <section class="song-list">
         <div class="container">
-            <a href="/song" class="song-item">
-                <img src="https://i1.sndcdn.com/artworks-wcNhNqxpy9yHoYtK-PNSFCA-t500x500.jpg" alt="Song Image">
-                <span>jaded - Defsharp</span>
-            </a>
-            <a href="/song" class="song-item">
-                <img src="https://i1.sndcdn.com/artworks-P8Mhxk2QaMM9-0-t500x500.jpg" alt="Song Image">
-                <span>Run It - Jelly Roll</span>
-            </a>
-            <a href="/song" class="song-item">
-                <img src="https://i1.sndcdn.com/artworks-y6WaHzlvp7PbwkLT-JlZicw-t500x500.png" alt="Song Image">
-                <span>luther - Kendrick Lamar</span>
-            </a>
+
+            <#list songs as song>
+                <div class="song-item" id="song-${song.songId}">
+                    <#if song.coverImagePath??>
+                        <img src="${song.coverImagePath}" alt="Song Cover">
+                        <#else>
+                            <img src="https://d3544la1u8djza.cloudfront.net/APHI/Blog/2023/September/small-breeds-hero.jpg"
+                                alt="Default Cover">
+                    </#if>
+                    <div class="song-info">
+                        <div class="song-title">${song.title}</div>
+                        <div class="song-artist">${song.artist} • ${song.genre}</div>
+                    </div>
+                    <button class="play-button"
+                        onclick="playSong('${song.songId}', '${song.filePath}', '${song.title}', '${song.artist}')">Play</button>
+                </div>
+            </#list>
         </div>
     </section>
+
+    <div class="now-playing" id="nowPlaying" style="display: none;">
+        <img id="nowPlayingCover" src="" width="50" height="50">
+        <div class="now-playing-info">
+            <div class="now-playing-title" id="nowPlayingTitle"></div>
+            <div class="now-playing-artist" id="nowPlayingArtist"></div>
+            <audio id="audioPlayer" controls class="audio-controls">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        let currentSongId = null;
+
+        function playSong(songId, filePath, title, artist) {
+            const audioPlayer = document.getElementById('audioPlayer');
+            const nowPlayingElement = document.getElementById('nowPlaying');
+            const nowPlayingTitle = document.getElementById('nowPlayingTitle');
+            const nowPlayingArtist = document.getElementById('nowPlayingArtist');
+            const nowPlayingCover = document.getElementById('nowPlayingCover');
+            const songElement = document.getElementById('song-' + songId);
+
+            nowPlayingTitle.textContent = title;
+            nowPlayingArtist.textContent = artist;
+
+            const coverImg = songElement.querySelector('img');
+            nowPlayingCover.src = coverImg.src;
+
+            audioPlayer.src = filePath;
+
+            nowPlayingElement.style.display = 'block';
+
+            if (currentSongId) {
+                document.getElementById('song-' + currentSongId).classList.remove('active-song');
+            }
+            songElement.classList.add('active-song');
+            currentSongId = songId;
+
+            audioPlayer.play().catch(e => {
+                console.error("Error playing audio:", e);
+                alert("Error playing audio. Please make sure you're using a supported browser and the file is accessible.");
+            });
+        }
+
+        document.getElementById('audioPlayer').addEventListener('ended', function () {
+            if (currentSongId) {
+                document.getElementById('song-' + currentSongId).classList.remove('active-song');
+            }
+        });
+    </script>
 </body>
+
 </html>

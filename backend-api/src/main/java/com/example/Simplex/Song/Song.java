@@ -25,6 +25,12 @@ public class Song {
     @Column(nullable = false)
     private String genre;
 
+    @Column(nullable = false)
+    private String filePath;
+
+    @Column
+    private String coverImagePath;
+
     public Song() {
     }
 
@@ -35,7 +41,7 @@ public class Song {
         this.artist = artist;
         this.genre = genre;
     }
-    
+
     public Song(String title, double duration, String artist, String genre) {
         this.title = title;
         this.duration = duration;
@@ -81,5 +87,21 @@ public class Song {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public String getCoverImagePath() {
+        return coverImagePath;
+    }
+
+    public void setCoverImagePath(String coverImagePath) {
+        this.coverImagePath = coverImagePath;
     }
 }

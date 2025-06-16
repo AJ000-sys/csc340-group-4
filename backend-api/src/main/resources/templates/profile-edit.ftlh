@@ -1,125 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #292525;
         }
+
         header {
-            background: #333;
+            background: #040404;
             color: #fff;
             padding: 1rem;
             text-align: center;
         }
-        main {
+
+        .container {
+            width: 80%;
+            margin: 2rem auto;
+        }
+
+        /* === NEW: Form styling to match dark theme === */
+        .edit-form {
+            background: #232323;
             padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 1rem;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #333;
-        }
+
         .form-group {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
+
         label {
             display: block;
             margin-bottom: 0.5rem;
+            color: #d693f8;
         }
+
         input[type="text"],
         input[type="email"],
-        input[type="password"],
         textarea {
             width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        button {
+            padding: 0.75rem;
             background: #333;
-            color: #fff;
-            border: none;
-            padding: 0.7rem 1.5rem;
-            cursor: pointer;
+            border: 1px solid #444;
             border-radius: 4px;
+            color: #fff;
         }
-        footer {
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .profile-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+            margin: 0 auto 1rem;
+            border: 3px solid #d693f8;
+        }
+
+        .file-upload {
             text-align: center;
-            padding: 1rem;
-            background: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        .file-upload-label {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: #d693f8;
+            color: #000;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .file-upload-label:hover {
+            background: #c47de8;
+        }
+
+        #profileImage {
+            display: none;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn-save {
+            background: #d693f8;
+            color: #000;
+        }
+
+        .btn-save:hover {
+            background: #c47de8;
+        }
+
+        .btn-cancel {
+            background: #555;
             color: #fff;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+        }
+
+        .btn-cancel:hover {
+            background: #666;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        nav ul li a {
+            color: #d693f8;
+            text-decoration: none;
+        }
+
+        nav ul li a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
+
 <body>
     <header>
-        <h1>Edit Your Profile</h1>
+        <div class="container">
+            <h1>Edit Profile</h1>
+        </div>
     </header>
 
-    <main>
+    <div class="container">
         <nav>
             <ul>
-                <li><a href="/profile">Back to Profile</a></li>
+                <li><a href="/user/profile">← Back to Profile</a></li>
             </ul>
         </nav>
 
-        <section id="profile-edit-form">
-            <h2>Update Your Information</h2>
-
-            <form action="/profile" method="post">
-                <div class="form-group">
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="name" value="Current Name">
+        <div class="edit-form">
+            <form action="/user/profile/update" method="post" enctype="multipart/form-data">
+                <div class="file-upload">
+                    <img id="profilePreview"
+                        src="<#if user.profileImagePath??>${user.profileImagePath}<#else>https://d3544la1u8djza.cloudfront.net/APHI/Blog/2023/September/small-breeds-hero.jpg</#if>"
+                        class="profile-preview" alt="Profile Preview">
+                    <label for="profileImage" class="file-upload-label">
+                        Change Profile Picture
+                    </label>
+                    <input type="file" id="profileImage" name="profileImage" accept="image/*">
                 </div>
 
                 <div class="form-group">
-                    <label for="bio">Bio:</label>
-                    <textarea id="bio" name="bio">A short bio about yourself.</textarea>
+                    <label for="userName">Username</label>
+                    <input type="text" id="userName" name="userName" value="${user.userName}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="profile-picture">Profile Picture:</label>
-                    <input type="file" id="profile-picture" name="profile-picture">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="${user.email}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" value="current@email.com">
+                    <label for="bio">Bio</label>
+                    <textarea id="bio" name="bio"><#if user.bio??>${user.bio}</#if></textarea>
                 </div>
 
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Enter new password">
+                <div class="button-group">
+                    <a href="/user/profile" class="btn btn-cancel">Cancel</a>
+                    <button type="submit" class="btn btn-save">Save Changes</button>
                 </div>
-
-                <div class="form-group">
-                    <label for="confirm-password">Confirm Password:</label>
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm new password">
-                </div>
-
-                <button type="submit">Update Profile</button>
             </form>
-        </section>
-    </main>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('profileImage').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    document.getElementById('profilePreview').src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
 
     <footer>
         <p>&copy; 2024 Your Company</p>
     </footer>
 </body>
+
 </html>

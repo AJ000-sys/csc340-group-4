@@ -1,6 +1,10 @@
 package com.example.Simplex.Song;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,9 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-@RestController
+import com.example.Simplex.User.User;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
 @RequestMapping("/song")
 public class SongController {
 
@@ -42,19 +51,40 @@ public class SongController {
         return songService.getSongsByGenre(genre);
     }
 
-    @PostMapping
-    public Object createSong(@RequestBody Song song) {
-        return songService.createSong(song);
+    @PostMapping("/upload")
+    public String handleUpload(@RequestParam String title,
+            @RequestParam double duration,
+            @RequestParam String artist,
+            @RequestParam String genre,
+            @RequestParam("audioFile") MultipartFile audioFile,
+            @RequestParam(value = "coverImage", required = false) MultipartFile coverImage,
+            HttpSession session, Model model) throws IOException {
+
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null) {
+            model.addAttribute("error", "You must be logged in to upload a song");
+            return "redirect:/user/login";
+        }
+
+        try {
+            Song song = new Song(title, duration, user.getUserName(), genre);
+            songService.createSong(song, audioFile, coverImage);
+            return "redirect:/user/browse-song";
+        } catch (Exception e) {
+            model.addAttribute("error", "Upload failed: " + e.getMessage());
+            return "upload-song";
+        }
     }
 
     @PutMapping("/{songId}")
-    public Song updateSong(@PathVariable Long songId, @RequestBody Song song) {
-        return songService.updateSong(songId, song);
+    public Object updateSong(@PathVariable Long songId, @RequestBody Song song) {
+        songService.updateSong(songId, song);
+        return "redirect:/user/browse-song";
     }
 
     @DeleteMapping("/{songId}")
     public Object deleteSong(@PathVariable Long songId) {
         songService.deleteSong(songId);
-        return songService.getAllSongs();
+        return "redirect:/user/browse-song";
     }
 }
