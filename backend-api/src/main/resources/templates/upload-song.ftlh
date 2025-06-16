@@ -48,6 +48,41 @@
             color: #d693f8;
         }
 
+                header {
+            background: #040404;
+            color: #d693f8;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #bbb 1px solid;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            margin: 0;
+            padding: 0;
+        }
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        header #branding h1 {
+            margin: 0;
+        }
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
         input[type="text"],
         input[type="file"] {
             width: 100%;
@@ -75,8 +110,21 @@
 </head>
 
 <body>
+
     <header>
-        <h1>Upload Song</h1>
+        <h1>Simplex</h1>
+
+        <div class="container">
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/user/browse-song">Browse</a></li>
+                    <li><a href="/user/upload">Upload</a></li>
+                    <li><a href="/playlists">Playlists</a></li>
+                    <li><a href="/user/logout">Logout</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
     <div class="container">
