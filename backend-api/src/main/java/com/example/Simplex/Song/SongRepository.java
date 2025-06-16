@@ -9,13 +9,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SongRepository extends JpaRepository<Song, Long> {
 
-    @Query(value = "select * from song s where s.title = ?1", nativeQuery = true)
+    @Query(value = "select * from songs s where s.title = ?1", nativeQuery = true)
     List<Song> findByTitle(String title);
 
-    @Query(value = "select * from song s where s.artist = ?1", nativeQuery = true)
+    @Query(value = "select * from songs s where s.artist = ?1", nativeQuery = true)
     List<Song> findByArtist(String artist);
 
-    @Query(value = "select * from song s where s.genre = ?1", nativeQuery = true)
+    @Query(value = "select * from songs s where s.genre = ?1", nativeQuery = true)
     List<Song> findByGenre(String genre);
 
     List<Song> findByTitleContainingIgnoreCase(String titlePart);

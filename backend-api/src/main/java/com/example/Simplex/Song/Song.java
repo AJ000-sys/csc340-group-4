@@ -17,9 +17,6 @@ public class Song {
     private String title;
 
     @Column(nullable = false)
-    private double duration;
-
-    @Column(nullable = false)
     private String artist;
 
     @Column(nullable = false)
@@ -34,17 +31,15 @@ public class Song {
     public Song() {
     }
 
-    public Song(Long songId, String title, double duration, String artist, String genre) {
+    public Song(Long songId, String title, String artist, String genre) {
         this.songId = songId;
         this.title = title;
-        this.duration = duration;
         this.artist = artist;
         this.genre = genre;
     }
 
-    public Song(String title, double duration, String artist, String genre) {
+    public Song(String title, String artist, String genre) {
         this.title = title;
-        this.duration = duration;
         this.artist = artist;
         this.genre = genre;
     }
@@ -63,14 +58,6 @@ public class Song {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public double getDuration() {
-        return duration;
-    }
-
-    public void setDuration(double duration) {
-        this.duration = duration;
     }
 
     public String getArtist() {

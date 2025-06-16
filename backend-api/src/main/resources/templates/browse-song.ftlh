@@ -71,6 +71,10 @@
             color: #000000;
         }
 
+        a.song-item {
+            text-decoration: none;
+        }
+
         .song-item img {
             width: 50px;
             height: 50px;
@@ -171,7 +175,7 @@
         <div class="container">
 
             <#list songs as song>
-                <div class="song-item" id="song-${song.songId}">
+                <a href="/song/${song.songId}" class="song-item" id="song-${song.songId}">
                     <#if song.coverImagePath??>
                         <img src="${song.coverImagePath}" alt="Song Cover">
                         <#else>
@@ -183,8 +187,10 @@
                         <div class="song-artist">${song.artist} • ${song.genre}</div>
                     </div>
                     <button class="play-button"
-                        onclick="playSong('${song.songId}', '${song.filePath}', '${song.title}', '${song.artist}')">Play</button>
-                </div>
+                        onclick="event.stopPropagation(); playSong('${song.songId}', '${song.filePath}', '${song.title}', '${song.artist}')">
+                        Play
+                    </button>
+                </a>
             </#list>
         </div>
     </section>

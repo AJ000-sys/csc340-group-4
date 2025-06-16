@@ -31,11 +31,6 @@ public class SongController {
         return songService.getAllSongs();
     }
 
-    @GetMapping("/{songId}")
-    public Object getSongById(@PathVariable long songId) {
-        return songService.getSongsById(songId);
-    }
-
     @GetMapping("/title/{title}")
     public Object getSongsByTitle(@PathVariable String title) {
         return songService.getSongsByTitle(title);
@@ -51,9 +46,28 @@ public class SongController {
         return songService.getSongsByGenre(genre);
     }
 
+    @GetMapping("/{songId}")
+    public String getSongById(@PathVariable long songId, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null)
+            return "redirect:/user/login";
+
+        Object songObj = songService.getSongsById(songId);
+        if (!(songObj instanceof Song))
+            return "redirect:/user/browse-song";
+
+        Song song = (Song) songObj;
+        if (song.getTitle() == null || song.getArtist() == null || song.getFilePath() == null) {
+            return "redirect:/user/browse-song";
+        }
+
+        model.addAttribute("song", songObj);
+        model.addAttribute("currentUser", user);
+        return "song";
+    }
+
     @PostMapping("/upload")
     public String handleUpload(@RequestParam String title,
-            @RequestParam double duration,
             @RequestParam String artist,
             @RequestParam String genre,
             @RequestParam("audioFile") MultipartFile audioFile,
@@ -67,7 +81,7 @@ public class SongController {
         }
 
         try {
-            Song song = new Song(title, duration, user.getUserName(), genre);
+            Song song = new Song(title, user.getUserName(), genre);
             songService.createSong(song, audioFile, coverImage);
             return "redirect:/user/browse-song";
         } catch (Exception e) {
