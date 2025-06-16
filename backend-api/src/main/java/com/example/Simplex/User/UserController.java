@@ -148,6 +148,9 @@ public class UserController {
             return "redirect:/user/login";
         }
 
+        String oldUsername = currentUser.getUserName();
+        boolean usernameChanged = !updatedUser.getUserName().equals(oldUsername);
+
         currentUser.setUserName(updatedUser.getUserName());
         currentUser.setEmail(updatedUser.getEmail());
         currentUser.setBio(updatedUser.getBio());
@@ -162,7 +165,17 @@ public class UserController {
             currentUser.setProfileImagePath("/uploads/" + imageFileName);
         }
 
-        userService.updateUser(currentUser.getUserId(), currentUser);
+        userRepository.save(currentUser);
+
+        if (usernameChanged) {
+            List<Song> userSongs = songRepository.findByArtist(oldUsername);
+            for (Song song : userSongs) {
+                song.setArtist(currentUser.getUserName());
+                songRepository.save(song);
+            }
+        }
+        session.setAttribute("currentUser", currentUser);
+
         return "redirect:/user/profile";
     }
 }
