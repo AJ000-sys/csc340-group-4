@@ -194,7 +194,6 @@
                         <div class="song-details flex-grow-1">
                             <h5 class="mb-1">${song.title}</h5>
                             <p><strong>Genre:</strong> ${song.genre}</p>
-                            <p><strong>Duration:</strong> ${song.duration} min</p>
                         </div>
                         <button class="edit-btn" title="Edit Song"><i class="fas fa-edit"></i></button>
                         <button class="delete-btn" title="Delete Song"><i class="fas fa-trash-alt"></i></button>
