@@ -2,9 +2,7 @@ package com.example.Simplex;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,8 +15,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -134,6 +130,5 @@ public class Comment {
     public void addReply(Comment reply) {
         reply.setParentComment(this);
         this.replies.add(reply);
-        System.out.println("hi");
     }
 }

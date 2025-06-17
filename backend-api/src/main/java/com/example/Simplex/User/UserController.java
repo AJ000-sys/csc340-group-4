@@ -140,7 +140,8 @@ public class UserController {
     }
 
     @PostMapping("/profile/update")
-    public String updateProfile(@ModelAttribute User updatedUser,
+    public String updateProfile(
+            @ModelAttribute User updatedUser,
             @RequestParam(value = "profileImage", required = false) MultipartFile profileImage,
             HttpSession session) throws IOException {
         User currentUser = (User) session.getAttribute("currentUser");
