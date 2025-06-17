@@ -122,5 +122,6 @@ public class Comment {
     public void addReply(Comment reply) {
         reply.setParentComment(this);
         this.replies.add(reply);
+        System.out.println("hi");
     }
 }
