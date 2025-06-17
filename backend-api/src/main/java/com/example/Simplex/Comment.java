@@ -1,7 +1,12 @@
 package com.example.Simplex;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import com.example.Simplex.Song.Song;
 import com.example.Simplex.User.User;
@@ -12,9 +17,13 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "comments")
@@ -36,6 +45,8 @@ public class Comment {
     private String content;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timestamp;
 
     @ManyToOne
@@ -46,6 +57,7 @@ public class Comment {
     private List<Comment> replies;
 
     public Comment() {
+        this.replies = new ArrayList<>();
     }
 
     public Comment(Long commentId, User user, Song song, String content, LocalDateTime timestamp) {
@@ -56,7 +68,7 @@ public class Comment {
         this.timestamp = timestamp;
     }
 
-    public Comment(User user, Song song, String comment, LocalDateTime timestamp) {
+    public Comment(User user, Song song, String content, LocalDateTime timestamp) {
         this.user = user;
         this.song = song;
         this.content = content;

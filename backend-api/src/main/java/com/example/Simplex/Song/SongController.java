@@ -1,6 +1,9 @@
 package com.example.Simplex.Song;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +17,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.Simplex.Comment;
+import com.example.Simplex.CommentRepository;
+import com.example.Simplex.CommentService;
 import com.example.Simplex.User.User;
+import com.example.Simplex.User.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -24,7 +32,19 @@ import jakarta.servlet.http.HttpSession;
 public class SongController {
 
     @Autowired
+    private CommentService commentService;
+
+    @Autowired
     private SongService songService;
+
+    @Autowired
+    private SongRepository songRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private CommentRepository commentRepository;
 
     @GetMapping
     public Object getAllSongs() {
@@ -52,16 +72,14 @@ public class SongController {
         if (user == null)
             return "redirect:/user/login";
 
-        Object songObj = songService.getSongsById(songId);
-        if (!(songObj instanceof Song))
-            return "redirect:/user/browse-song";
-
-        Song song = (Song) songObj;
-        if (song.getTitle() == null || song.getArtist() == null || song.getFilePath() == null) {
+        Song song = songRepository.findById(songId).orElse(null);
+        if (song == null || song.getTitle() == null || song.getArtist() == null || song.getFilePath() == null) {
             return "redirect:/user/browse-song";
         }
 
-        model.addAttribute("song", songObj);
+        List<Comment> comments = commentService.getTopLevelCommentsBySong(songId);
+        model.addAttribute("song", song);
+        model.addAttribute("comments", comments);
         model.addAttribute("currentUser", user);
         return "song";
     }
@@ -88,6 +106,21 @@ public class SongController {
             model.addAttribute("error", "Upload failed: " + e.getMessage());
             return "upload-song";
         }
+    }
+
+    @GetMapping("/{songId}/comments")
+    public String getSongComments(@PathVariable Long songId, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("currentUser");
+        if (user == null)
+            return "redirect:/user/login";
+
+        Song song = songRepository.findById(songId).orElseThrow();
+        List<Comment> comments = commentRepository.findTopLevelCommentsBySong(song);
+
+        model.addAttribute("song", song);
+        model.addAttribute("comments", comments);
+        model.addAttribute("currentUser", user);
+        return "activity";
     }
 
     @PutMapping("/{songId}")

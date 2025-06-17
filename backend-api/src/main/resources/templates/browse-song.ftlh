@@ -187,7 +187,7 @@
                         <div class="song-artist">${song.artist} • ${song.genre}</div>
                     </div>
                     <button class="play-button"
-                        onclick="event.stopPropagation(); playSong('${song.songId}', '${song.filePath}', '${song.title}', '${song.artist}')">
+                        onclick="event.preventDefault(); window.location.href='/song/${song.songId}'">
                         Play
                     </button>
                 </a>
