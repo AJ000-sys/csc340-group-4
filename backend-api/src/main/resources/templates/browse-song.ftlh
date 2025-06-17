@@ -164,7 +164,6 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/user/upload">Upload</a></li>
                     <li><a href="/user/profile">Profile</a></li>
-                    <li><a href="/playlists">Playlists</a></li>
                     <li><a href="/user/logout">Logout</a></li>
                 </ul>
             </nav>
