@@ -77,7 +77,7 @@
         <h1>Comments for: ${song.title}</h1>
 
         <div class="comment-card">
-            <form action="/activity/comment" method="post">
+            <form action="/comments" method="post">
                 <input type="hidden" name="songId" value="${song.songId}">
                 <div class="mb-3">
                     <textarea class="form-control" name="content" placeholder="Write a comment..." required></textarea>
@@ -103,7 +103,7 @@
                     </button>
 
                     <div id="reply-form-${comment.commentId}" class="reply-form">
-                        <form action="/activity/reply" method="post" class="reply-form-inner">
+                        <form action="/comments/reply" method="post" class="reply-form-inner">
                             <input type="hidden" name="parentCommentId" value="${comment.commentId}">
                             <input type="hidden" name="songId" value="${song.songId}">
                             <textarea class="form-control" name="content" required

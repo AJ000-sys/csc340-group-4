@@ -199,7 +199,7 @@
                 <div class="alert alert-danger">${error}</div>
             </#if>
 
-            <form action="/activity/comment" method="post">
+            <form action="/comments" method="post">
                 <input type="hidden" name="songId" value="${song.songId}">
                 <textarea name="content" placeholder="Add a comment..." required></textarea>
                 <button type="submit" class="action-button">Post Comment</button>
@@ -216,10 +216,9 @@
                             </div>
                             <p>${comment.content}</p>
 
-                            <!-- Reply form (initially hidden) -->
                             <button onclick="toggleReplyForm('${comment.commentId}')"
                                 class="reply-button">Reply</button>
-                            <form id="reply-form-${comment.commentId}" action="/activity/reply" method="post"
+                            <form id="reply-form-${comment.commentId}" action="/comments/reply" method="post"
                                 style="display: none;">
                                 <input type="hidden" name="parentCommentId" value="${comment.commentId}">
                                 <input type="hidden" name="songId" value="${song.songId}">
@@ -227,7 +226,6 @@
                                 <button type="submit" class="action-button">Post Reply</button>
                             </form>
 
-                            <!-- Replies -->
                             <#if comment.replies?? && comment.replies?size gt 0>
                                 <div class="replies">
                                     <#list comment.replies as reply>
@@ -251,13 +249,14 @@
                 </#if>
             </div>
         </div>
+    </div>
 
-        <script>
-            function toggleReplyForm(commentId) {
-                const form = document.getElementById('reply-form-' + commentId);
-                form.style.display = form.style.display === 'none' ? 'block' : 'none';
-            }
-        </script>
+    <script>
+        function toggleReplyForm(commentId) {
+            const form = document.getElementById('reply-form-' + commentId);
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
 </body>
 
 </html>

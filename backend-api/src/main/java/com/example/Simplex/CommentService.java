@@ -24,8 +24,8 @@ public class CommentService {
     private SongRepository songRepository;
 
     public Comment createComment(Long userId, Long songId, String content) {
-        User user = userRepository.findById(userId).orElseThrow();
-        Song song = songRepository.findById(songId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        Song song = songRepository.findById(songId).orElseThrow(() -> new IllegalArgumentException("Song not found"));
 
         Comment comment = new Comment();
         comment.setUser(user);
@@ -37,8 +37,9 @@ public class CommentService {
     }
 
     public Comment createReply(Long userId, Long parentCommentId, String content) {
-        User user = userRepository.findById(userId).orElseThrow();
-        Comment parent = commentRepository.findById(parentCommentId).orElseThrow();
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        Comment parent = commentRepository.findById(parentCommentId)
+                .orElseThrow(() -> new IllegalArgumentException("Parent comment not found"));
 
         Comment reply = new Comment();
         reply.setUser(user);
@@ -51,15 +52,18 @@ public class CommentService {
     }
 
     public List<Comment> getCommentsBySong(Long songId) {
-        Song song = songRepository.findById(songId).orElseThrow(() -> 
-            new IllegalArgumentException("Song not found"));
+        Song song = songRepository.findById(songId).orElseThrow(() -> new IllegalArgumentException("Song not found"));
         return commentRepository.findBySong(song);
     }
 
     public List<Comment> getTopLevelCommentsBySong(Long songId) {
-        Song song = songRepository.findById(songId).orElseThrow(() -> 
-            new IllegalArgumentException("Song not found"));
+        Song song = songRepository.findById(songId).orElseThrow(() -> new IllegalArgumentException("Song not found"));
         return commentRepository.findTopLevelCommentsBySong(song);
     }
 
+    public List<Comment> getReplies(Long parentCommentId) {
+        Comment parent = commentRepository.findById(parentCommentId)
+                .orElseThrow(() -> new IllegalArgumentException("Parent comment not found"));
+        return commentRepository.findByParentComment(parent);
+    }
 }
