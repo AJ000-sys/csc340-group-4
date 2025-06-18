@@ -134,11 +134,6 @@
             </div>
 
             <div class="form-group">
-                <label for="duration">Duration (in seconds)</label>
-                <input type="text" id="duration" name="duration" required>
-            </div>
-
-            <div class="form-group">
                 <label for="artist">Artist</label>
                 <input type="text" id="artist" name="artist" required>
             </div>

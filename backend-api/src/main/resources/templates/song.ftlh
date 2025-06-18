@@ -77,6 +77,11 @@
             color: white;
             text-decoration: none;
             border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .back-button:hover {
+            background: #444;
         }
 
         .action-buttons {
@@ -93,14 +98,13 @@
             font-weight: bold;
         }
 
-        .share-button {
-            background: #ffb300;
-            color: #222;
-        }
-
         .download-button {
             background: #90caf9;
             color: #222;
+        }
+
+        .download-button:hover {
+            background: #7ab7f7;
         }
 
         .save-button {
@@ -165,11 +169,25 @@
             background-color: #e53935;
             color: white;
         }
+
+        .reply-button {
+            background: none;
+            border: none;
+            color: #90caf9;
+            cursor: pointer;
+            padding: 5px 0;
+            margin-top: 5px;
+        }
+
+        .reply-button:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
+        <a href="/user/browse-song" class="back-button">← Back to Browse</a>
         <div class="song-header">
             <#if song.coverImagePath??>
                 <img class="song-cover" src="${song.coverImagePath}" alt="Album cover">
@@ -185,7 +203,6 @@
                     <div>Genre: ${song.genre}</div>
                 </div>
                 <div class="action-buttons">
-                    <button class="action-button share-button">Share</button>
                     <button class="action-button download-button">Download</button>
                 </div>
             </div>
@@ -234,9 +251,9 @@
                             </form>
 
                             <#if comment.replies?? && comment.replies?size gt 0>
-                                <div class="replies">
+                                <div class="replies" style="margin-left: 20px; margin-top: 10px;">
                                     <#list comment.replies as reply>
-                                        <div class="reply">
+                                        <div class="reply" style="margin-top: 10px;">
                                             <div class="comment-header">
                                                 <img src="${reply.user.profileImagePath!'/default-profile.jpg'}"
                                                     alt="User avatar">
