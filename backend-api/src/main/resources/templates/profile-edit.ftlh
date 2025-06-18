@@ -228,38 +228,6 @@
                     <textarea id="bio" name="bio"><#if user.bio??>${user.bio}</#if></textarea>
                 </div>
 
-                <div class="social-media-section">
-                    <h4><i class="fas fa-share-alt social-icon"></i>Social Media Links</h4>
-
-                    <div class="form-group">
-                        <label for="facebookUrl"><i class="fab fa-facebook social-icon"></i>Facebook</label>
-                        <input type="url" id="facebookUrl" name="facebookUrl"
-                            value="<#if user.facebookUrl??>${user.facebookUrl}</#if>"
-                            placeholder="https://facebook.com/username">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="twitterUrl"><i class="fab fa-twitter social-icon"></i>Twitter</label>
-                        <input type="url" id="twitterUrl" name="twitterUrl"
-                            value="<#if user.twitterUrl??>${user.twitterUrl}</#if>"
-                            placeholder="https://twitter.com/username">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="instagramUrl"><i class="fab fa-instagram social-icon"></i>Instagram</label>
-                        <input type="url" id="instagramUrl" name="instagramUrl"
-                            value="<#if user.instagramUrl??>${user.instagramUrl}</#if>"
-                            placeholder="https://instagram.com/username">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="youtubeUrl"><i class="fab fa-youtube social-icon"></i>YouTube</label>
-                        <input type="url" id="youtubeUrl" name="youtubeUrl"
-                            value="<#if user.youtubeUrl??>${user.youtubeUrl}</#if>"
-                            placeholder="https://youtube.com/channel">
-                    </div>
-                </div>
-
                 <div class="button-group">
                     <a href="/user/profile" class="btn btn-cancel">Cancel</a>
                     <div>
