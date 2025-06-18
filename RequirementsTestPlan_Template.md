@@ -14,7 +14,6 @@
 #### 3. Customer:  View and subscribe to services:
 1. User C2 browse dashboard for songs.
 2. User C2 views User P1's available songs.
-2. User C2 subscribes to User P1 for their songs and will now be updated whenever User P1 uploads a song.
 
 #### 4. Customer: Write review
 1. User C2 logs in and views their subscriptions.
@@ -23,8 +22,6 @@
 #### 5. Customer: Modify profile
 1. User C1 logs in and modifies their profile.
 2. User C1 views User P1's song's and leaves a positive review.
-3. User C1 subscribes to S1. C1 exits.
 
 #### 6. Provider:  Reply to Review, View Customer Statistics, & Modify Profile use cases
 1. User P1 logs in and reads their review and replies with thanks. 
-2. User P1 views customer statistics. UserP1 modifies his profile. User P1 exits.
