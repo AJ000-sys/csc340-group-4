@@ -33,6 +33,18 @@ public class User {
     private String bio;
 
     @Column
+    private String facebookUrl;
+
+    @Column
+    private String twitterUrl;
+
+    @Column
+    private String instagramUrl;
+
+    @Column
+    private String youtubeUrl;
+
+    @Column
     private String profileImagePath;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -100,7 +112,7 @@ public class User {
 
     public void setProfileImagePath(String profileImagePath) {
         this.profileImagePath = profileImagePath;
-        
+
     }
 
     public List<Comment> getComments() {
@@ -114,5 +126,37 @@ public class User {
     public void addComment(Comment comment) {
         comments.add(comment);
         comment.setUser(this);
+    }
+
+    public String getFacebookUrl() {
+        return facebookUrl;
+    }
+
+    public void setFacebookUrl(String facebookUrl) {
+        this.facebookUrl = facebookUrl;
+    }
+
+    public String getTwitterUrl() {
+        return twitterUrl;
+    }
+
+    public void setTwitterUrl(String twitterUrl) {
+        this.twitterUrl = twitterUrl;
+    }
+
+    public String getInstagramUrl() {
+        return instagramUrl;
+    }
+
+    public void setInstagramUrl(String instagramUrl) {
+        this.instagramUrl = instagramUrl;
+    }
+
+    public String getYoutubeUrl() {
+        return youtubeUrl;
+    }
+
+    public void setYoutubeUrl(String youtubeUrl) {
+        this.youtubeUrl = youtubeUrl;
     }
 }

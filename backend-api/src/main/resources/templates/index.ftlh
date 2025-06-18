@@ -1,48 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simplex</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #292525;
         }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
         header {
-            background: #333;
-            color: #fff;
-            padding: 1rem;
-            text-align: center;
+            background: #040404;
+            color: #d693f8;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #bbb 1px solid;
         }
-        main {
-            padding: 2rem;
-        }
-        footer {
-            text-align: center;
-            padding: 1rem;
-            background: #333;
+
+        header a {
             color: #fff;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+
+        header ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        header li {
+            float: left;
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+
+        header #branding {
+            float: left;
+        }
+
+        header #branding h1 {
+            margin: 0;
+        }
+
+        header nav {
+            float: right;
+            margin-top: 10px;
+        }
+
+        .content {
+            padding: 20px;
+            color: white;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .cta-button {
+            background: #d693f8;
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .cta-button:hover {
+            background: #c47de8;
         }
     </style>
 </head>
+
 <body>
     <header>
-        <h1>Welcome to Simplex</h1>
+        <div class="container">
+            <div id="branding">
+                <h1><span class="highlight">Simplex</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/user/login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
-    <main>
-        <section>
-            <h2>About</h2>
-            <p>This is a music streaming platform created for demonstration purposes.</p>
+
+    <div class="container">
+        <section class="content">
+            <h2>Welcome to Simplex</h2>
+            <p>Your ultimate music streaming platform</p>
+            <a href="/user/register" class="cta-button">Get Started</a>
         </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 Simplex</p>
-    </footer>
+    </div>
 </body>
+
 </html>

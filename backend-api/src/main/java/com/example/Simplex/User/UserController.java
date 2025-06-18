@@ -144,17 +144,20 @@ public class UserController {
             @ModelAttribute User updatedUser,
             @RequestParam(value = "profileImage", required = false) MultipartFile profileImage,
             HttpSession session) throws IOException {
+
         User currentUser = (User) session.getAttribute("currentUser");
         if (currentUser == null) {
             return "redirect:/user/login";
         }
 
-        String oldUsername = currentUser.getUserName();
-        boolean usernameChanged = !updatedUser.getUserName().equals(oldUsername);
-
         currentUser.setUserName(updatedUser.getUserName());
         currentUser.setEmail(updatedUser.getEmail());
         currentUser.setBio(updatedUser.getBio());
+
+        currentUser.setFacebookUrl(updatedUser.getFacebookUrl());
+        currentUser.setTwitterUrl(updatedUser.getTwitterUrl());
+        currentUser.setInstagramUrl(updatedUser.getInstagramUrl());
+        currentUser.setYoutubeUrl(updatedUser.getYoutubeUrl());
 
         if (profileImage != null && !profileImage.isEmpty()) {
             String imageFileName = UUID.randomUUID() + "_" + profileImage.getOriginalFilename();
@@ -167,16 +170,26 @@ public class UserController {
         }
 
         userRepository.save(currentUser);
-
-        if (usernameChanged) {
-            List<Song> userSongs = songRepository.findByArtist(oldUsername);
-            for (Song song : userSongs) {
-                song.setArtist(currentUser.getUserName());
-                songRepository.save(song);
-            }
-        }
         session.setAttribute("currentUser", currentUser);
-
         return "redirect:/user/profile";
+    }
+
+    @PostMapping("/profile/delete")
+    public String deleteProfile(HttpSession session, Model model) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null) {
+            return "redirect:/user/login";
+        }
+
+        List<Song> userSongs = songRepository.findByArtist(currentUser.getUserName());
+        songRepository.deleteAll(userSongs);
+
+        userRepository.delete(currentUser);
+
+        session.invalidate();
+
+        model.addAttribute("user", new User());
+        model.addAttribute("message", "Your profile has been successfully deleted.");
+        return "register";
     }
 }

@@ -43,14 +43,23 @@
             margin-bottom: 1.5rem;
         }
 
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+        }
+
         .social-links a {
             color: #b3b3b3;
-            margin-right: 18px;
-            transition: color 0.2s;
+            transition: all 0.3s ease;
+            font-size: 1.8rem;
         }
 
         .social-links a:hover {
             color: #d693f8;
+            transform: translateY(-3px);
         }
 
         .songs-section {
@@ -158,7 +167,6 @@
 </head>
 
 <body>
-
     <header>
         <div class="container">
             <div id="branding">
@@ -177,18 +185,40 @@
 
     <div class="container">
         <div class="profile-card text-center">
-            <img src="${currentUser.profileImagePath!'https://d3544la1u8djza.cloudfront.net/APHI/Blog/2023/September/small-breeds-hero.jpg'}"
+            <img src="${currentUser.profileImagePath!'https://cdn.pixabay.com/photo/2016/03/23/17/26/music-note-1275177_1280.png'}"
                 alt="Profile Image" class="profile-img">
             <div class="artist-name">${currentUser.userName}</div>
             <div class="artist-bio">
                 <#if currentUser.bio??>${currentUser.bio}<#else>No bio yet.</#if>
             </div>
-            <div class="social-links mb-3">
-                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook fa-2x"></i></a>
-                <a href="#" target="_blank" title="Twitter"><i class="fab fa-twitter fa-2x"></i></a>
-                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram fa-2x"></i></a>
-                <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube fa-2x"></i></a>
+
+            <div class="social-links">
+                <#if currentUser.facebookUrl?? && currentUser.facebookUrl !="">
+                    <a href="${currentUser.facebookUrl}" target="_blank" rel="noopener noreferrer" title="Facebook"
+                        class="social-link">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </#if>
+                <#if currentUser.twitterUrl?? && currentUser.twitterUrl !="">
+                    <a href="${currentUser.twitterUrl}" target="_blank" rel="noopener noreferrer" title="Twitter"
+                        class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </#if>
+                <#if currentUser.instagramUrl?? && currentUser.instagramUrl !="">
+                    <a href="${currentUser.instagramUrl}" target="_blank" rel="noopener noreferrer" title="Instagram"
+                        class="social-link">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </#if>
+                <#if currentUser.youtubeUrl?? && currentUser.youtubeUrl !="">
+                    <a href="${currentUser.youtubeUrl}" target="_blank" rel="noopener noreferrer" title="YouTube"
+                        class="social-link">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </#if>
             </div>
+
             <button class="edit-btn" title="Edit Profile" onclick="window.location.href='/user/profile/edit'"><i
                     class="fas fa-edit"></i></button>
         </div>
