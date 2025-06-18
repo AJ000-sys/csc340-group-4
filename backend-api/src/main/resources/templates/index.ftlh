@@ -99,7 +99,7 @@
     <div class="container">
         <section class="content">
             <h2>Welcome to Simplex</h2>
-            <p>Your ultimate music streaming platform</p>
+            <p>Upload your songs here!</p>
             <a href="/user/register" class="cta-button">Get Started</a>
         </section>
     </div>

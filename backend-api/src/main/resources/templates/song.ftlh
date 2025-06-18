@@ -98,15 +98,6 @@
             font-weight: bold;
         }
 
-        .download-button {
-            background: #90caf9;
-            color: #222;
-        }
-
-        .download-button:hover {
-            background: #7ab7f7;
-        }
-
         .save-button {
             background: #43a047;
             color: #fff;
@@ -201,9 +192,6 @@
                 <div class="song-artist">${song.artist}</div>
                 <div class="song-meta">
                     <div>Genre: ${song.genre}</div>
-                </div>
-                <div class="action-buttons">
-                    <button class="action-button download-button">Download</button>
                 </div>
             </div>
         </div>
