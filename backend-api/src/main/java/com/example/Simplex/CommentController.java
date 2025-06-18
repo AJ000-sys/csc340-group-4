@@ -42,19 +42,6 @@ public class CommentController {
         }
         return "redirect:/song/" + songId;
     }
-
-      @GetMapping("/comments")
-  public String showComments(Model model) {
-    model.addAttribute("comments", commentService.getAllComments());
-    return "comment_form"; // Renders comment_form.ftl
-  }
-
-    @PostMapping("/post-comment")
-  public String postComment(@RequestParam String commentText) {
-    commentService.saveComment(commentText);
-    return "redirect:/comments"; // Refreshes the page
-  }
-
     @PostMapping("/reply")
     public String createReply(
             @RequestParam Long parentCommentId,

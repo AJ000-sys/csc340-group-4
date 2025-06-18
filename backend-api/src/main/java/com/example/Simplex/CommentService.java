@@ -66,15 +66,4 @@ public class CommentService {
                 .orElseThrow(() -> new IllegalArgumentException("Parent comment not found"));
         return commentRepository.findByParentComment(parent);
     }
-
-    Object getAllComments() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public Comment saveComment(String content) {
-        Comment comment = new Comment();
-        comment.setContent(content);
-        comment.setTimestamp(LocalDateTime.now());
-        return commentRepository.save(comment);
-    }
 }
