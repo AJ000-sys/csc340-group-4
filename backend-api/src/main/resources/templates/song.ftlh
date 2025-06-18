@@ -196,7 +196,7 @@
             </div>
         </div>
 
-        <audio class="audio-player" controls autoplay>
+        <audio class="audio-player" controls>
             <source src="${song.filePath}" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>

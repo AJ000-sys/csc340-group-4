@@ -185,6 +185,7 @@
                         <span class="song-icon"><i class="fas fa-music"></i></span>
                         <div class="song-details flex-grow-1">
                             <h5 class="mb-1">${song.title}</h5>
+                            <p><strong>Artist:</strong> ${song.artist}</p>
                             <p><strong>Genre:</strong> ${song.genre}</p>
                         </div>
                         <button class="edit-btn" title="Edit Song"
