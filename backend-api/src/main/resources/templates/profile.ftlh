@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Artist Profile</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
@@ -41,25 +41,6 @@
             color: #b3b3b3;
             font-size: 1.1rem;
             margin-bottom: 1.5rem;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-
-        .social-links a {
-            color: #b3b3b3;
-            transition: all 0.3s ease;
-            font-size: 1.8rem;
-        }
-
-        .social-links a:hover {
-            color: #d693f8;
-            transform: translateY(-3px);
         }
 
         .songs-section {
@@ -177,6 +158,7 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/user/browse-song">Browse</a></li>
                     <li><a href="/user/upload">Upload</a></li>
+                    <li><a href="/user/profile">Profile</a></li>
                     <li><a href="/user/logout">Logout</a></li>
                 </ul>
             </nav>
@@ -191,40 +173,12 @@
             <div class="artist-bio">
                 <#if currentUser.bio??>${currentUser.bio}<#else>No bio yet.</#if>
             </div>
-
-            <div class="social-links">
-                <#if currentUser.facebookUrl?? && currentUser.facebookUrl !="">
-                    <a href="${currentUser.facebookUrl}" target="_blank" rel="noopener noreferrer" title="Facebook"
-                        class="social-link">
-                        <i class="fab fa-facebook"></i>
-                    </a>
-                </#if>
-                <#if currentUser.twitterUrl?? && currentUser.twitterUrl !="">
-                    <a href="${currentUser.twitterUrl}" target="_blank" rel="noopener noreferrer" title="Twitter"
-                        class="social-link">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </#if>
-                <#if currentUser.instagramUrl?? && currentUser.instagramUrl !="">
-                    <a href="${currentUser.instagramUrl}" target="_blank" rel="noopener noreferrer" title="Instagram"
-                        class="social-link">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </#if>
-                <#if currentUser.youtubeUrl?? && currentUser.youtubeUrl !="">
-                    <a href="${currentUser.youtubeUrl}" target="_blank" rel="noopener noreferrer" title="YouTube"
-                        class="social-link">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                </#if>
-            </div>
-
             <button class="edit-btn" title="Edit Profile" onclick="window.location.href='/user/profile/edit'"><i
                     class="fas fa-edit"></i></button>
         </div>
 
         <div class="songs-section">
-            <h3 class="mb-4" style="color:#ffc400; font-weight:700;">Uploaded Songs</h3>
+            <h3 class="mb-4" style="color:#ffc400; font-weight:700;">Songs</h3>
             <#if songs?? && songs?size gt 0>
                 <#list songs as song>
                     <div class="song-card">
