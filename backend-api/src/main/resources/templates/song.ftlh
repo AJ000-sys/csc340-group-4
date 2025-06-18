@@ -12,6 +12,14 @@
             padding: 0;
         }
 
+        header {
+            background: #040404;
+            color: #d693f8;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
         .container {
             max-width: 800px;
             margin: 40px auto;
@@ -167,7 +175,7 @@
                 <img class="song-cover" src="${song.coverImagePath}" alt="Album cover">
                 <#else>
                     <img class="song-cover"
-                        src="https://d3544la1u8djza.cloudfront.net/APHI/Blog/2023/September/small-breeds-hero.jpg"
+                        src="https://cdn.pixabay.com/photo/2016/03/23/17/26/music-note-1275177_1280.png"
                         alt="Default cover">
             </#if>
             <div class="song-info">
@@ -179,7 +187,6 @@
                 <div class="action-buttons">
                     <button class="action-button share-button">Share</button>
                     <button class="action-button download-button">Download</button>
-                    <button class="action-button save-button">Save to Playlist</button>
                 </div>
             </div>
         </div>

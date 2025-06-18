@@ -161,7 +161,6 @@
                     <li><a href="/">Home</a></li>
                     <li><a href="/user/browse-song">Browse</a></li>
                     <li><a href="/user/upload">Upload</a></li>
-                    <li><a href="/playlists">Playlists</a></li>
                     <li><a href="/user/logout">Logout</a></li>
                 </ul>
             </nav>
@@ -186,7 +185,7 @@
         </div>
 
         <div class="songs-section">
-            <h3 class="mb-4" style="color:#ffc400; font-weight:700;">Uploaded Songs</h3>
+            <h3 class="mb-4" style="color:#ffc400; font-weight:700;">Songs</h3>
             <#if songs?? && songs?size gt 0>
                 <#list songs as song>
                     <div class="song-card">
