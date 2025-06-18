@@ -1,9 +1,14 @@
 package com.example.Simplex.Song;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +31,9 @@ public class SongController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Value("${upload.directory}")
+    private String uploadDirectory;
 
     @GetMapping
     public Object getAllSongs() {
@@ -85,6 +93,73 @@ public class SongController {
             model.addAttribute("error", "Upload failed: " + e.getMessage());
             return "upload-song";
         }
+    }
+
+    @GetMapping("/{songId}/edit")
+    public String showEditForm(@PathVariable Long songId, Model model, HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null) {
+            return "redirect:/user/login";
+        }
+
+        Song song = songRepository.findById(songId).orElse(null);
+        if (song == null || !song.getArtist().equals(currentUser.getUserName())) {
+            return "redirect:/user/profile";
+        }
+
+        model.addAttribute("song", song);
+        return "edit-song";
+    }
+
+    @PostMapping("/{songId}/edit")
+    public String updateSong(
+            @PathVariable Long songId,
+            @RequestParam String title,
+            @RequestParam String genre,
+            @RequestParam(required = false) MultipartFile coverImage,
+            HttpSession session) throws IOException {
+
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null) {
+            return "redirect:/user/login";
+        }
+
+        Song song = songRepository.findById(songId).orElse(null);
+        if (song == null || !song.getArtist().equals(currentUser.getUserName())) {
+            return "redirect:/user/profile";
+        }
+
+        song.setTitle(title);
+        song.setGenre(genre);
+
+        if (coverImage != null && !coverImage.isEmpty()) {
+            String imageFileName = UUID.randomUUID() + "_" + coverImage.getOriginalFilename();
+            Path uploadPath = Paths.get(uploadDirectory);
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+            Files.copy(coverImage.getInputStream(), uploadPath.resolve(imageFileName));
+            song.setCoverImagePath("/uploads/" + imageFileName);
+        }
+
+        songRepository.save(song);
+        return "redirect:/user/profile";
+    }
+
+    @GetMapping("/{songId}/delete")
+    public String deleteSong(@PathVariable Long songId, HttpSession session) {
+        User currentUser = (User) session.getAttribute("currentUser");
+        if (currentUser == null) {
+            return "redirect:/user/login";
+        }
+
+        Song song = songRepository.findById(songId).orElse(null);
+        if (song == null || !song.getArtist().equals(currentUser.getUserName())) {
+            return "redirect:/user/profile";
+        }
+
+        songRepository.deleteById(songId);
+        return "redirect:/user/profile";
     }
 
     @PutMapping("/{songId}")

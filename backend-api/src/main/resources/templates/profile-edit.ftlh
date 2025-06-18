@@ -27,7 +27,6 @@
             margin: 2rem auto;
         }
 
-        /* === NEW: Form styling to match dark theme === */
         .edit-form {
             background: #232323;
             padding: 2rem;
@@ -127,6 +126,28 @@
             background: #666;
         }
 
+        /* NEW: Delete button styles */
+        .btn-delete {
+            background: #ff4d4d;
+            color: white;
+            padding: 0.75rem;
+            margin-left: 1rem;
+        }
+
+        .btn-delete:hover {
+            background: #e60000;
+        }
+
+        /* NEW: Modal styles */
+        .modal-content {
+            background-color: #232323;
+            color: white;
+        }
+
+        .modal-header, .modal-footer {
+            border-color: #444;
+        }
+
         nav ul {
             list-style: none;
             padding: 0;
@@ -187,24 +208,63 @@
                     <textarea id="bio" name="bio"><#if user.bio??>${user.bio}</#if></textarea>
                 </div>
 
+                <!-- MODIFIED: Button group with delete button -->
                 <div class="button-group">
                     <a href="/user/profile" class="btn btn-cancel">Cancel</a>
-                    <button type="submit" class="btn btn-save">Save Changes</button>
+                    <div>
+                        <button type="submit" class="btn btn-save">Save Changes</button>
+                        <button type="button" class="btn btn-delete" id="deleteProfileBtn" title="Delete Profile">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- NEW: Delete confirmation modal -->
+    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color: #232323; color: white;">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete your profile? This action cannot be undone.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <form action="/user/profile/delete" method="post" style="display: inline;">
+                        <button type="submit" class="btn btn-danger">Delete Permanently</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById('profileImage').addEventListener('change', function (e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (event) {
-                    document.getElementById('profilePreview').src = event.target.result;
-                };
-                reader.readAsDataURL(file);
+        document.addEventListener('DOMContentLoaded', function() {
+            // NEW: Delete button functionality
+            const deleteBtn = document.getElementById('deleteProfileBtn');
+            if (deleteBtn) {
+                deleteBtn.addEventListener('click', function() {
+                    const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+                    modal.show();
+                });
             }
+
+            document.getElementById('profileImage').addEventListener('change', function (e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        document.getElementById('profilePreview').src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         });
     </script>
 
@@ -212,5 +272,4 @@
         <p>&copy; 2024 Your Company</p>
     </footer>
 </body>
-
 </html>
