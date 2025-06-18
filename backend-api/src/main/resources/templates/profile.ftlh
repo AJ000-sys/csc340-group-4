@@ -109,6 +109,7 @@
             z-index: 2;
             font-size: 1.5rem;
         }
+
         header {
             background: #040404;
             color: #d693f8;
@@ -116,31 +117,38 @@
             min-height: 70px;
             border-bottom: #bbb 1px solid;
         }
+
         header a {
             color: #fff;
             text-decoration: none;
             text-transform: uppercase;
             font-size: 16px;
         }
+
         header ul {
             margin: 0;
             padding: 0;
         }
+
         header li {
             float: left;
             display: inline;
             padding: 0 20px 0 20px;
         }
+
         header #branding {
             float: left;
         }
+
         header #branding h1 {
             margin: 0;
         }
+
         header nav {
             float: right;
             margin-top: 10px;
         }
+
         .container {
             width: 80%;
             margin: auto;
@@ -169,8 +177,8 @@
 
     <div class="container">
         <div class="profile-card text-center">
-            <button class="delete-btn delete-profile-btn" title="Delete Profile"><i class="fas fa-trash-alt"></i></button>
-            <img src="${currentUser.profileImagePath!'https://d3544la1u8djza.cloudfront.net/APHI/Blog/2023/September/small-breeds-hero.jpg'}" alt="Profile Image" class="profile-img">
+            <img src="${currentUser.profileImagePath!'https://d3544la1u8djza.cloudfront.net/APHI/Blog/2023/September/small-breeds-hero.jpg'}"
+                alt="Profile Image" class="profile-img">
             <div class="artist-name">${currentUser.userName}</div>
             <div class="artist-bio">
                 <#if currentUser.bio??>${currentUser.bio}<#else>No bio yet.</#if>
@@ -181,11 +189,12 @@
                 <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram fa-2x"></i></a>
                 <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube fa-2x"></i></a>
             </div>
-            <button class="edit-btn" title="Edit Profile" onclick="window.location.href='/user/profile/edit'"><i class="fas fa-edit"></i></button>
+            <button class="edit-btn" title="Edit Profile" onclick="window.location.href='/user/profile/edit'"><i
+                    class="fas fa-edit"></i></button>
         </div>
 
         <div class="songs-section">
-            <h3 class="mb-4" style="color:#ffc400; font-weight:700;">Songs</h3>
+            <h3 class="mb-4" style="color:#ffc400; font-weight:700;">Uploaded Songs</h3>
             <#if songs?? && songs?size gt 0>
                 <#list songs as song>
                     <div class="song-card">
@@ -194,12 +203,16 @@
                             <h5 class="mb-1">${song.title}</h5>
                             <p><strong>Genre:</strong> ${song.genre}</p>
                         </div>
-                        <button class="edit-btn" title="Edit Song"><i class="fas fa-edit"></i></button>
-                        <button class="delete-btn" title="Delete Song"><i class="fas fa-trash-alt"></i></button>
+                        <button class="edit-btn" title="Edit Song"
+                            onclick="window.location.href='/song/${song.songId}/edit'"><i
+                                class="fas fa-edit"></i></button>
+                        <button class="delete-btn" title="Delete Song"
+                            onclick="if(confirm('Are you sure you want to delete this song?')) { window.location.href='/song/${song.songId}/delete' }"><i
+                                class="fas fa-trash-alt"></i></button>
                     </div>
                 </#list>
-            <#else>
-                <p>No songs uploaded yet.</p>
+                <#else>
+                    <p>No songs uploaded yet.</p>
             </#if>
         </div>
     </div>
