@@ -126,7 +126,6 @@
             background: #666;
         }
 
-        /* NEW: Delete button styles */
         .btn-delete {
             background: #ff4d4d;
             color: white;
@@ -138,13 +137,13 @@
             background: #e60000;
         }
 
-        /* NEW: Modal styles */
         .modal-content {
             background-color: #232323;
             color: white;
         }
 
-        .modal-header, .modal-footer {
+        .modal-header,
+        .modal-footer {
             border-color: #444;
         }
 
@@ -163,6 +162,27 @@
 
         nav ul li a:hover {
             text-decoration: underline;
+        }
+
+        .social-media-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #2a2a2a;
+            border-radius: 8px;
+        }
+
+        .social-media-section h4 {
+            border-bottom: 1px solid #444;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #fff
+        }
+
+        .social-icon {
+            width: 24px;
+            text-align: center;
+            margin-right: 10px;
+            color: #d693f8;
         }
     </style>
 </head>
@@ -185,7 +205,7 @@
             <form action="/user/profile/update" method="post" enctype="multipart/form-data">
                 <div class="file-upload">
                     <img id="profilePreview"
-                        src="<#if user.profileImagePath??>${user.profileImagePath}<#else>https://d3544la1u8djza.cloudfront.net/APHI/Blog/2023/September/small-breeds-hero.jpg</#if>"
+                        src="<#if user.profileImagePath??>${user.profileImagePath}<#else>https://cdn.pixabay.com/photo/2016/03/23/17/26/music-note-1275177_1280.png</#if>"
                         class="profile-preview" alt="Profile Preview">
                     <label for="profileImage" class="file-upload-label">
                         Change Profile Picture
@@ -208,7 +228,38 @@
                     <textarea id="bio" name="bio"><#if user.bio??>${user.bio}</#if></textarea>
                 </div>
 
-                <!-- MODIFIED: Button group with delete button -->
+                <div class="social-media-section">
+                    <h4><i class="fas fa-share-alt social-icon"></i>Social Media Links</h4>
+
+                    <div class="form-group">
+                        <label for="facebookUrl"><i class="fab fa-facebook social-icon"></i>Facebook</label>
+                        <input type="url" id="facebookUrl" name="facebookUrl"
+                            value="<#if user.facebookUrl??>${user.facebookUrl}</#if>"
+                            placeholder="https://facebook.com/username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="twitterUrl"><i class="fab fa-twitter social-icon"></i>Twitter</label>
+                        <input type="url" id="twitterUrl" name="twitterUrl"
+                            value="<#if user.twitterUrl??>${user.twitterUrl}</#if>"
+                            placeholder="https://twitter.com/username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="instagramUrl"><i class="fab fa-instagram social-icon"></i>Instagram</label>
+                        <input type="url" id="instagramUrl" name="instagramUrl"
+                            value="<#if user.instagramUrl??>${user.instagramUrl}</#if>"
+                            placeholder="https://instagram.com/username">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="youtubeUrl"><i class="fab fa-youtube social-icon"></i>YouTube</label>
+                        <input type="url" id="youtubeUrl" name="youtubeUrl"
+                            value="<#if user.youtubeUrl??>${user.youtubeUrl}</#if>"
+                            placeholder="https://youtube.com/channel">
+                    </div>
+                </div>
+
                 <div class="button-group">
                     <a href="/user/profile" class="btn btn-cancel">Cancel</a>
                     <div>
@@ -222,13 +273,13 @@
         </div>
     </div>
 
-    <!-- NEW: Delete confirmation modal -->
     <div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content" style="background-color: #232323; color: white;">
                 <div class="modal-header">
                     <h5 class="modal-title">Confirm Deletion</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        style="filter: invert(1);"></button>
                 </div>
                 <div class="modal-body">
                     <p>Are you sure you want to delete your profile? This action cannot be undone.</p>
@@ -245,11 +296,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // NEW: Delete button functionality
+        document.addEventListener('DOMContentLoaded', function () {
             const deleteBtn = document.getElementById('deleteProfileBtn');
             if (deleteBtn) {
-                deleteBtn.addEventListener('click', function() {
+                deleteBtn.addEventListener('click', function () {
                     const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
                     modal.show();
                 });
@@ -272,4 +322,5 @@
         <p>&copy; 2024 Your Company</p>
     </footer>
 </body>
+
 </html>

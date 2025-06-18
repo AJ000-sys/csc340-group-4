@@ -148,7 +148,6 @@
 </head>
 
 <body>
-
     <header>
         <div class="container">
             <div id="branding">
@@ -167,7 +166,7 @@
 
     <div class="container">
         <div class="profile-card text-center">
-            <img src="${currentUser.profileImagePath!'https://d3544la1u8djza.cloudfront.net/APHI/Blog/2023/September/small-breeds-hero.jpg'}"
+            <img src="${currentUser.profileImagePath!'https://cdn.pixabay.com/photo/2016/03/23/17/26/music-note-1275177_1280.png'}"
                 alt="Profile Image" class="profile-img">
             <div class="artist-name">${currentUser.userName}</div>
             <div class="artist-bio">
