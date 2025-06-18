@@ -26,7 +26,7 @@ This app offers the customer music related services such as browsing, listening,
 
     2. Create services - Post available music, and/or albums/singles.
 
-# su25-security-demo-jpa
+# csc340-group-4-Simplex
 ## Installation
 - Get the project
     - clone
