@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Artist Profile</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
@@ -41,16 +41,6 @@
             color: #b3b3b3;
             font-size: 1.1rem;
             margin-bottom: 1.5rem;
-        }
-
-        .social-links a {
-            color: #b3b3b3;
-            margin-right: 18px;
-            transition: color 0.2s;
-        }
-
-        .social-links a:hover {
-            color: #d693f8;
         }
 
         .songs-section {
@@ -183,18 +173,12 @@
             <div class="artist-bio">
                 <#if currentUser.bio??>${currentUser.bio}<#else>No bio yet.</#if>
             </div>
-            <div class="social-links mb-3">
-                <a href="#" target="_blank" title="Facebook"><i class="fab fa-facebook fa-2x"></i></a>
-                <a href="#" target="_blank" title="Twitter"><i class="fab fa-twitter fa-2x"></i></a>
-                <a href="#" target="_blank" title="Instagram"><i class="fab fa-instagram fa-2x"></i></a>
-                <a href="#" target="_blank" title="YouTube"><i class="fab fa-youtube fa-2x"></i></a>
-            </div>
             <button class="edit-btn" title="Edit Profile" onclick="window.location.href='/user/profile/edit'"><i
                     class="fas fa-edit"></i></button>
         </div>
 
         <div class="songs-section">
-            <h3 class="mb-4" style="color:#ffc400; font-weight:700;">Uploaded Songs</h3>
+            <h3 class="mb-4" style="color:#ffc400; font-weight:700;">Songs</h3>
             <#if songs?? && songs?size gt 0>
                 <#list songs as song>
                     <div class="song-card">
